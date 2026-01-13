@@ -7,8 +7,19 @@ export interface MarketItem {
   change: string;
 }
 
+const FALLBACK_DATA: MarketItem[] = [
+  { symbol: 'BTC', price: '68,210', change: '+1.4%' },
+  { symbol: 'AAPL', price: '215.30', change: '+0.8%' },
+  { symbol: 'NVDA', price: '124.50', change: '+3.2%' },
+  { symbol: 'ETH', price: '2,650', change: '-0.5%' }
+];
+
 export const fetchRealtimeMarketData = async (): Promise<MarketItem[]> => {
-  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY as string });
+  // استخدام الترويسة لضمان وجود المفتاح
+  const apiKey = process.env.API_KEY;
+  if (!apiKey) return FALLBACK_DATA;
+
+  const ai = new GoogleGenAI({ apiKey });
 
   const prompt = `
     جلب أحدث أسعار الأسهم والعملات الرقمية التالية: AAPL, TSLA, BTC, ETH, NVDA, GOOGL.
@@ -38,16 +49,10 @@ export const fetchRealtimeMarketData = async (): Promise<MarketItem[]> => {
     });
 
     const text = response.text;
-    if (!text) throw new Error("No data received");
+    if (!text) return FALLBACK_DATA;
     return JSON.parse(text) as MarketItem[];
   } catch (error) {
-    console.error("Market data fetch error:", error);
-    // Fallback data if API fails
-    return [
-      { symbol: 'BTC', price: '68,210', change: '+1.4%' },
-      { symbol: 'AAPL', price: '215.30', change: '+0.8%' },
-      { symbol: 'NVDA', price: '124.50', change: '+3.2%' },
-      { symbol: 'ETH', price: '2,650', change: '-0.5%' }
-    ];
+    console.warn("Market data fetch failed, using fallback:", error);
+    return FALLBACK_DATA;
   }
 };

@@ -1,9 +1,9 @@
-
 import React, { useState, useEffect } from 'react';
 import { TrendingUp, TrendingDown, BarChart2, Loader2 } from 'lucide-react';
 import { fetchRealtimeMarketData, MarketItem } from '../services/marketService';
 import { MARKET_DATA as MOCK_DATA } from '../constants';
 
+// MarketTicker component displays a scrolling bar with real-time market indices.
 const MarketTicker: React.FC = () => {
   const [marketItems, setMarketItems] = useState<MarketItem[]>(MOCK_DATA);
   const [loading, setLoading] = useState(true);
@@ -71,4 +71,9 @@ const MarketTicker: React.FC = () => {
       </div>
       
       {/* Decorative Gradient Overlays */}
-      <div className="absolute right-[115px] top-0 bottom-0 w-12 bg-gradient-to-l from-slate-950 to-transparent
+      <div className="absolute right-[115px] top-0 bottom-0 w-12 bg-gradient-to-l from-slate-950 to-transparent"></div>
+    </div>
+  );
+};
+
+export default MarketTicker;
