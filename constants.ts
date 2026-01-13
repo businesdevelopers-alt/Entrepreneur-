@@ -147,7 +147,7 @@ export const NAV_LINKS = [
   { label: 'ريادة الأعمال', value: 'business' },
   { label: 'شركات ناشئة', value: 'startups' },
   { label: 'ذكاء اصطناعي', value: 'ai' },
-  { label: 'عملات رقمية', value: 'crypto' },
+  { label: 'الكتاب', value: 'authors' },
   { label: 'المحلل الذكي', value: 'analyst' },
 ];
 

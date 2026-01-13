@@ -6,6 +6,7 @@ import BreakingNewsTicker from './components/BreakingNewsTicker';
 import ArticleCard from './components/ArticleCard';
 import ArticleDetail from './components/ArticleDetail';
 import AuthorProfile from './components/AuthorProfile';
+import AuthorsView from './components/AuthorsView';
 import SmartAnalyst from './components/SmartAnalyst';
 import Footer from './components/Footer';
 import Sidebar from './components/Sidebar';
@@ -95,6 +96,7 @@ const App: React.FC = () => {
   const renderContent = () => {
     try {
       if (currentView === 'analyst') return <SmartAnalyst />;
+      if (currentView === 'authors') return <AuthorsView />;
       if (currentView === 'article' && selectedArticle) {
         return (
           <ArticleDetail 
